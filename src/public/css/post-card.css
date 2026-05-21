@@ -1,0 +1,75 @@
+.post-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-bottom: 1px solid #eff3f4;
+}
+
+.post-card-header {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.post-card-header-link {
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    align-items: flex-start;
+}
+
+.post-card-header-link:hover .post-card-author {
+    text-decoration: underline;
+}
+
+.post-card-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.post-card-author {
+    font-weight: bold;
+    color: #0f1419;
+}
+
+.post-card-handle {
+    color: #666;
+    font-size: 12px;
+}
+
+.post-card-content {
+    margin-bottom: 10px;
+}
+
+.post-card-image {
+    width: 100%;
+    max-height: 400px;
+    border-radius: var(--radius-card);
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.post-card-actions {
+    display: flex;
+    gap: 15px;
+    padding-top: 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+.post-card-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 12px;
+}
+
+.post-card-btn:hover {
+    color: #333;
+}
+
+.post-card-form {
+    display: inline;
+}

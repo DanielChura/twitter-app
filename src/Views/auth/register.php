@@ -1,63 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Registrarse - Twitter App</title>
+    <link rel="stylesheet" href="/twitter-app/src/public/css/auth.css">
 </head>
-<style>
-    * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-
-    .container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    form {
-        gap: 1rem;
-        display: flex;
-        flex-direction: column;
-        min-width: 400px;
-    }
-</style>
-
 <body>
-    <section class="container">
-        <form action="/twitter-app/src/public/register" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" required name="username" id="username">
+    <section class="auth-container">
+        <form action="/twitter-app/src/public/register" method="post" class="auth-form">
+            <h1 class="auth-title">Crear Cuenta</h1>
+            <div class="auth-form-group">
+                <label for="username" class="auth-label">Username</label>
+                <input type="text" class="auth-input" required name="username" id="username">
             </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" required name="email" id="email">
+            <div class="auth-form-group">
+                <label for="email" class="auth-label">Email</label>
+                <input type="email" class="auth-input" required name="email" id="email">
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" required name="password" id="password">
+            <div class="auth-form-group">
+                <label for="password" class="auth-label">Password</label>
+                <input type="password" class="auth-input" required name="password" id="password">
             </div>
-            <div class="form-group">
-                <label for="bio">Bio (optional)</label>
-                <input type="text" class="form-control" name="bio" id="bio">
+            <div class="auth-form-group">
+                <label for="bio" class="auth-label">Bio (opcional)</label>
+                <input type="text" class="auth-input" name="bio" id="bio">
             </div>
-            <div class="form-group">
-                <label for="avatar_url">Avatar (optional)</label>
-                <input type="text" class="form-control" name="avatar_url" id="avatar_url">
+            <div class="auth-form-group">
+                <label for="avatar_url" class="auth-label">Avatar URL (opcional)</label>
+                <input type="text" class="auth-input" name="avatar_url" id="avatar_url">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="auth-btn">Registrarse</button>
+            <p class="auth-link">¿Ya tienes cuenta? <a href="/twitter-app/src/public/login">Inicia sesión</a></p>
         </form>
     </section>
-
 </body>
-
 </html>

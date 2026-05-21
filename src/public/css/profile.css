@@ -1,0 +1,89 @@
+.profile-header {
+    background: #fff;
+    padding: 1.5rem;
+    border-bottom: 1px solid #eff3f4;
+}
+
+.profile-top {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.profile-avatar-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    margin: 0 0 5px 0;
+    font-size: 20px;
+}
+
+.profile-handle {
+    color: #666;
+    margin: 0 0 10px 0;
+    font-size: 14px;
+}
+
+.profile-bio {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.profile-follow-btn {
+    padding: 8px 15px;
+    background: #0066cc;
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.profile-follow-btn:hover {
+    background: #0052a3;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.profile-stat-number {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.profile-stat-label {
+    color: #666;
+    font-size: 12px;
+    margin: 5px 0 0 0;
+}
+
+.profile-posts-title {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.profile-empty {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 40px;
+    text-align: center;
+    border-radius: var(--radius-card);
+}
+
+.profile-empty-text {
+    color: #999;
+    font-size: 16px;
+}

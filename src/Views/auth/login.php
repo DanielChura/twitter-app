@@ -1,51 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Iniciar Sesión - Twitter App</title>
+    <link rel="stylesheet" href="/twitter-app/src/public/css/auth.css">
 </head>
-<style>
-    * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-
-    .container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    form {
-        gap: 1rem;
-        display: flex;
-        flex-direction: column;
-        min-width: 400px;
-    }
-</style>
-
 <body>
-    <section class="container">
-        <form action="/twitter-app/src/public/login" method="post">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" required name="email" id="email">
+    <section class="auth-container">
+        <form action="/twitter-app/src/public/login" method="post" class="auth-form">
+            <h1 class="auth-title">Iniciar Sesión</h1>
+            <div class="auth-form-group">
+                <label for="email" class="auth-label">Email</label>
+                <input type="email" class="auth-input" required name="email" id="email">
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" required name="password" id="password">
+            <div class="auth-form-group">
+                <label for="password" class="auth-label">Password</label>
+                <input type="password" class="auth-input" required name="password" id="password">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="auth-btn">Iniciar Sesión</button>
+            <p class="auth-link">¿No tienes cuenta? <a href="/twitter-app/src/public/register">Regístrate</a></p>
         </form>
     </section>
-
 </body>
-
 </html>
