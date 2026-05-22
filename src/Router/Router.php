@@ -62,7 +62,7 @@ class Router
     {
         if (is_array($handler)) {
             [$class, $method] = $handler;
-            $controller = new $class;
+            $controller = $class;
             return $controller->$method(...array_values($params));
         }
 

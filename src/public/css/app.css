@@ -70,51 +70,6 @@
     margin-bottom: 10px;
 }
 
-/* ===== CREATE POST FORM ===== */
-.create-post {
-    background: #fff;
-    padding: 1.5rem;
-    border-bottom: 1px solid #eff3f4;
-}
-
-.create-post-title {
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.create-post-textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: var(--radius-card);
-    margin-bottom: 10px;
-    font-family: Arial, sans-serif;
-    resize: vertical;
-}
-
-.create-post-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: var(--radius-card);
-    margin-bottom: 10px;
-}
-
-.create-post-btn {
-    padding: 10px 20px;
-    background: #0066cc;
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-pill);
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.create-post-btn:hover {
-    background: #0052a3;
-}
-
 /* ===== USERS LIST (Users/index.php) ===== */
 .users-page {
     max-width: 600px;

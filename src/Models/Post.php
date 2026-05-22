@@ -11,18 +11,18 @@ class Post
     public static function getAllPosts(Database $db): array
     {
         $sql = "SELECT 
-            p.id as post_id,
-            u.id as user_id, 
-            u.username, 
-            u.avatar_url, 
-            u.email, 
-            p.content, 
-            p.image_url, 
-            COUNT(pl.post_id) AS total_likes
-        FROM posts p
-        INNER JOIN users u ON p.user_id = u.id
-        LEFT JOIN post_likes pl ON p.id = pl.post_id
-        GROUP BY p.id";
+    p.id AS post_id,
+    u.id AS user_id, 
+    u.username, 
+    u.avatar_url, 
+    u.email, 
+    p.content, 
+    p.image_url,
+    (SELECT COUNT(*) FROM post_likes WHERE post_id = p.id) AS total_likes,
+    (SELECT COUNT(*) FROM comments WHERE post_id = p.id) AS total_comments
+FROM posts p
+INNER JOIN users u ON p.user_id = u.id
+GROUP BY p.id, u.id, u.username, u.avatar_url, u.email, p.content, p.image_url";
         $stmt = $db->query($sql);
         return $stmt->fetchAll();
     }
@@ -67,5 +67,40 @@ ORDER BY posts.created_at DESC;";
 
         $sql = "INSERT INTO post_likes (user_id, post_id) VALUES (:user_id, :post_id)";
         return (bool) $db->query($sql, ["user_id" => $user_id, "post_id" => $post_id]);
+    }
+
+    public static function getPostById(Database $db, int $post_id)
+    {
+        $sql = "SELECT 
+    p.id AS post_id,
+    p.content,
+    p.image_url,
+    p.created_at,
+    u.id AS user_id,
+    u.username,
+    u.email,
+    u.avatar_url,
+    (SELECT COUNT(*) FROM post_likes WHERE post_id = p.id) AS total_likes,
+    (SELECT COUNT(*) FROM comments WHERE post_id = p.id) AS total_comments
+FROM posts p
+INNER JOIN users u ON p.user_id = u.id
+WHERE p.id = :post_id;";
+
+        $stmt = $db->query($sql, ["post_id" => $post_id]);
+        return $stmt->fetch();
+    }
+
+    public static function getCommentsByPostId(Database $db, int $post_id)
+    {
+        $sql = "SELECT u.id AS user_id, u.username, u.email, u.avatar_url, c.id AS comment_id, c.content, c.created_at FROM comments c INNER JOIN users u ON c.user_id = u.id WHERE c.post_id = :post_id";
+        $stmt = $db->query($sql, [":post_id" => $post_id]);
+        return $stmt->fetchAll();
+    }
+
+    public static function commentPost(Database $db, int $post_id, int $user_id, string $content): bool
+    {
+        $sql = "INSERT INTO comments (post_id, user_id, content) VALUES (:post_id, :user_id, :content)";
+        $stmt = $db->query($sql, ["post_id" => $post_id, "user_id" => $user_id, "content" => $content]);
+        return $stmt->rowCount() > 0;
     }
 }

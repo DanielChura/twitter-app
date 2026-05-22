@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse - Twitter App</title>
-    <link rel="stylesheet" href="/twitter-app/src/public/css/auth.css">
+    <link rel="stylesheet" href="<?= url('/css/auth.css') ?>">
 </head>
+
 <body>
     <section class="auth-container">
-        <form action="/twitter-app/src/public/register" method="post" class="auth-form">
+        <form action="<?= url('/register') ?>" method="post" class="auth-form">
+            <input name="csrf_token" type="hidden" value="<?= $_SESSION["csrf_token"] ?>">
             <h1 class="auth-title">Crear Cuenta</h1>
+            <input name="csrf_token" type="hidden" value="<?=$_SESSION["csrf_token"]?>">
             <div class="auth-form-group">
                 <label for="username" class="auth-label">Username</label>
                 <input type="text" class="auth-input" required name="username" id="username">
@@ -31,8 +35,9 @@
                 <input type="text" class="auth-input" name="avatar_url" id="avatar_url">
             </div>
             <button type="submit" class="auth-btn">Registrarse</button>
-            <p class="auth-link">¿Ya tienes cuenta? <a href="/twitter-app/src/public/login">Inicia sesión</a></p>
+            <p class="auth-link">¿Ya tienes cuenta? <a href="<?= url('/login') ?>">Inicia sesión</a></p>
         </form>
     </section>
 </body>
+
 </html>

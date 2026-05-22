@@ -10,19 +10,7 @@ use App\Models\User;
 
 class UserController
 {
-    private Database $db;
-
-    public function __construct()
-    {
-        require __DIR__ . "/../../config/config.php";
-        $this->db = new Database($config);
-    }
-
-    public function index(): void
-    {
-        $users = User::getAll($this->db);
-        require __DIR__ . "/../Views/Users/index.php";
-    }
+    public function __construct(private Database $db) {}
 
     public function getProfile(string $id): void
     {
@@ -46,7 +34,7 @@ class UserController
     {
         $follower = $_SESSION["user_id"] ?? null;
         if (!$follower || (int)$follower === (int)$user_id) {
-            $this->redirect("/twitter-app/src/public/users/$user_id");
+            $this->redirect(url("/users/$user_id"));
         }
 
         if (User::isFollowing($this->db, (int)$follower, (int)$user_id)) {
@@ -55,18 +43,18 @@ class UserController
             User::follow($this->db, (int)$follower, (int)$user_id);
         }
 
-        $this->redirect("/twitter-app/src/public/users/$user_id");
+        $this->redirect(url("/users/$user_id"));
     }
 
     public function likePost(string $post_id): void
     {
         $user_id = $_SESSION["user_id"] ?? null;
         if (!$user_id) {
-            $this->redirect("/twitter-app/src/public/login");
+            $this->redirect(url('/login'));
         }
 
         Post::like($this->db, (int)$user_id, (int)$post_id);
-        $this->redirect("/twitter-app/src/public/home");
+        $this->redirect(url('/home'));
     }
 
     private function redirect(string $url): void

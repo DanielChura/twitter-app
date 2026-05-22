@@ -2,7 +2,17 @@
 require __DIR__ . "/../../vendor/autoload.php";
 require __DIR__ . "/../../config/config.php";
 
+set_exception_handler(function (Throwable $e) {
+     http_response_code(500);
+     error_log($e->getMessage());
+     require __DIR__ . "/../Views/components/error/500.php";
+});
+
 session_start();
+
+if (empty($_SESSION["csrf_token"])) {
+    $_SESSION["csrf_token"] = bin2hex(random_bytes(32));
+}
 
 use App\Controllers\AuthController;
 use App\Controllers\PostController;
@@ -14,28 +24,31 @@ $pdo = new Database($config);
 $router = new Router();
 
 // AUTH
-$router->get("$BASE_URL/register", [AuthController::class, "register"]);
-$router->post("$BASE_URL/register", [AuthController::class, "storedRegister"]);
-$router->get("$BASE_URL/login", [AuthController::class, "login"]);
-$router->post("$BASE_URL/login", [AuthController::class, "storedLogin"]);
+$router->get(url("/register"), [new AuthController($pdo), "register"]);
+$router->post(url("/register"), [new AuthController($pdo), "storedRegister"]);
+$router->get(url("/login"), [new AuthController($pdo), "login"]);
+$router->post(url("/login"), [new AuthController($pdo), "storedLogin"]);
 
 // USERS
-$router->get("$BASE_URL/users", [UserController::class, "index"]);
-$router->get("$BASE_URL/users/{id}", [UserController::class, "getProfile"]);
-$router->post("$BASE_URL/follow/{user_id}", [UserController::class, "follow"]);
-$router->post("$BASE_URL/unfollow/{id}", [UserController::class, "unfollow"]);
+$router->get(url("/users/{id}"), [new UserController($pdo), "getProfile"]);
+$router->post(url("/follow/{user_id}"), [new UserController($pdo), "follow"]);
+$router->post(url("/unfollow/{id}"), [new UserController($pdo), "unfollow"]);
 
 // POSTS
-$router->get("$BASE_URL/home", [PostController::class, "index"]);
-$router->post("$BASE_URL/storedPost", [PostController::class, "storedPost"]);
-$router->post("$BASE_URL/likePost/{post_id}", [UserController::class, "likePost"]);
+$router->get(url("/home"), [new PostController($pdo), "index"]);
+$router->post(url("/storedPost"), [new PostController($pdo), "storedPost"]);
+$router->post(url("/likePost/{post_id}"), [new UserController($pdo), "likePost"]);
+$router->get(url("/post/{post_id}"), [new PostController($pdo), "postById"]);
+
+//COMMENTS
+$router->post(url("/comment/{post_id}"), [new PostController($pdo), "comment"]);
 
 // AUTH LOGOUT
-$router->get("$BASE_URL/logout", [AuthController::class, "logOut"]);
+$router->get(url("/logout"), [new AuthController($pdo), "logOut"]);
 
 // HOME
-$router->get("$BASE_URL/", function () {
-    echo "Hola Bienvenido";
+$router->get(url("/"), function () {
+     echo "Hola Bienvenido";
 });
 
 $router->dispatch();

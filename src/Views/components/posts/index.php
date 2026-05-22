@@ -3,14 +3,17 @@
 ob_start();
 ?>
 
-<div class="create-post">
-    <h3 class="create-post-title">Crear Post</h3>
-    <form action="/twitter-app/src/public/storedPost" method="post">
-        <textarea name="content" placeholder="¿Qué está pasando?" required class="create-post-textarea"></textarea>
-        <input type="text" name="image_url" placeholder="URL de imagen (opcional)" class="create-post-input">
-        <button type="submit" class="create-post-btn">Publicar</button>
-    </form>
-</div>
+<?php if (isset($_SESSION["user_id"])): ?>
+    <div class="create-post">
+        <h3 class="create-post-title">Crear Post</h3>
+        <form action="<?= url('/storedPost') ?>" method="post">
+            <textarea name="content" placeholder="¿Qué está pasando?" required class="create-post-textarea"></textarea>
+            <input name="csrf_token" type="hidden" value="<?= $_SESSION["csrf_token"]?>">
+            <input type="text" name="image_url" placeholder="URL de imagen (opcional)" class="create-post-input">
+            <button type="submit" class="create-post-btn">Publicar</button>
+        </form>
+    </div>
+<?php endif; ?>
 
 <?php foreach ($posts as $post): ?>
     <?php include __DIR__ . "/../post-card.php"; ?>

@@ -9,13 +9,8 @@ use App\Models\User;
 
 class AuthController
 {
-    private Database $db;
 
-    public function __construct()
-    {
-        require __DIR__ . "/../../config/config.php";
-        $this->db = new Database($config);
-    }
+    public function __construct(private Database $db) {}
 
     public function register(): void
     {
@@ -25,8 +20,9 @@ class AuthController
     public function storedRegister(): void
     {
         try {
+            verifyCSRF();
             $this->validateRegisterData($_POST);
-            
+
             $data = [
                 "username" => $_POST["username"],
                 "email" => $_POST["email"],
@@ -34,9 +30,8 @@ class AuthController
                 "bio" => $_POST["bio"] ?? null,
                 "avatar_url" => $_POST["avatar_url"] ?? null,
             ];
-
             User::registerUser($this->db, $data);
-            $this->redirect("/twitter-app/src/public/");
+            $this->redirect(url('/'));
         } catch (\Exception $e) {
             echo "Error: " . $e->getMessage();
         }
@@ -61,7 +56,7 @@ class AuthController
             if ($user && password_verify($password, $user["password"])) {
                 $_SESSION["user_id"] = $user["id"];
                 $_SESSION["username"] = $user["username"];
-                $this->redirect("/twitter-app/src/public/home");
+            $this->redirect(url('/home'));
             }
 
             throw new \Exception("Usuario o contraseña incorrecta.");
@@ -81,7 +76,7 @@ class AuthController
     {
         $_SESSION = [];
         session_destroy();
-        $this->redirect("/twitter-app/src/public/home");
+        $this->redirect(url('/home'));
     }
 
     private function redirect(string $url): void

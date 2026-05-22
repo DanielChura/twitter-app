@@ -12,7 +12,7 @@ ob_start();
                 <p class="profile-bio"><?= htmlspecialchars($user["bio"] ?? "Sin biografía") ?></p>
             </div>
             <?php if (!$isMe): ?>
-                <form action="/twitter-app/src/public/follow/<?= $user["id"] ?>" method="post">
+                <form action="<?= url("/follow/{$user["id"]}") ?>" method="post">
                     <button class="profile-follow-btn">Seguir</button>
                 </form>
             <?php endif; ?>
